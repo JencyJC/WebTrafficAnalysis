@@ -38,7 +38,7 @@ This is a data analysis project focused on analyzing website traffic using **Exc
 
 ## Dashboard Preview
 
-![Dashboard Preview](Dashboard2-img.png)
+![Dashboard Preview](Dashboard2-img.PNG)
 
 
 ---
