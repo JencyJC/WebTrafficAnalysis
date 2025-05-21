@@ -6,6 +6,7 @@ import os
 import sys
 sys.stdout.reconfigure(encoding='utf-8')
 import seaborn as sns
+import numpy as np
 
 # Use seaborn style
 sns.axes_style(style="whitegrid")
@@ -148,6 +149,30 @@ plt.grid(axis='x', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
 
+
+#6.Statistical Anomaly Detection - z-score
+
+# Calculate z-scores
+daily_mean = daily_visits.mean()
+daily_std = daily_visits.std()
+z_scores = (daily_visits - daily_mean) / daily_std
+
+# Mark anomalies (e.g., z-score > 2 or < -2)
+threshold = 2
+anomalies = daily_visits[(z_scores > threshold) | (z_scores < -threshold)]
+
+# Plot with anomaly markers
+plt.figure(figsize=(12, 5))
+plt.plot(daily_visits.index, daily_visits.values, label='Daily Sessions', color='blue')
+plt.plot(rolling_mean.index, rolling_mean.values, label='7-Day Moving Avg', color='orange', linestyle='--')
+plt.scatter(anomalies.index, anomalies.values, color='red', label='Anomalies', zorder=5)
+plt.title("Web Traffic with Anomalies (Z-Score Method)", fontsize=14)
+plt.xlabel("Date", fontsize=12)
+plt.ylabel("Sessions", fontsize=12)
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 
 cursor.close()
 conn.close()
